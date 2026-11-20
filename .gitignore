@@ -1,0 +1,20 @@
+# Results contain people's names and contact details: never upload them
+*.csv
+*.html
+*.htm
+*_files/
+
+# Local Python environment and caches
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Packages built for sharing
+*.zip
+
+# Editor and system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
