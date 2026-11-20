@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-"""Public faculty-directory crawler. No AI service or API key required."""
+
+
 import argparse
 import csv
 import re
@@ -15,10 +15,10 @@ from urllib.robotparser import RobotFileParser
 from bs4 import BeautifulSoup, Comment
 
 __version__ = '1.1.0'
-# Change this to your GitHub repository so site administrators can see what this tool is.
+
 PROJECT_URL = 'https://github.com/hashb001/Faculty_Crawler'
 AGENT = f'FacultyDirectoryCollector/{__version__} (+{PROJECT_URL})'
-MIN_DELAY = 1.0  # seconds between requests; enforced so the tool stays polite to university servers
+MIN_DELAY = 1.0  
 EMAIL = re.compile(r"[A-Za-z0-9.!#$%&'*+/=?^_`{|}~-]+@[A-Za-z0-9-]+(?:\.[A-Za-z0-9-]+)+")
 FACULTY = re.compile(r'\b(professor|lecturer|instructor|faculty|reader|research scientist|chair)\b', re.I)
 STAFF = re.compile(r'\b(staff|administrative|administrator|coordinator|manager|secretary|receptionist|'
@@ -92,8 +92,7 @@ def candidates(soup, base, name_selector=None):
         profile = urljoin(base, link['href']) if link and link.get('href') else ''
         if profile and urlsplit(profile).scheme not in ('http', 'https'):
             profile = ''
-        # The same person often appears twice (photo link and name link); two different people
-        # who share a name have different profile pages, so keep both of them.
+
         if (name, profile) in seen or (name, '') in seen or (not profile and any(s[0] == name for s in seen)):
             continue
         seen.add((name, profile))
@@ -183,10 +182,10 @@ class Fetcher:
 
 def local_file(value):
     """Return a Path when the input names a saved HTML file, else None."""
-    value = value.strip().strip('\'"')  # dragging a file into the terminal adds quotes
+    value = value.strip().strip('\'"')  
     if value.lower().startswith('file://'):
         value = unquote(urlsplit(value).path)
-        if re.match(r'^/[A-Za-z]:[/\\]', value):  # Windows: file:///C:/Users/... -> C:/Users/...
+        if re.match(r'^/[A-Za-z]:[/\\]', value):  
             value = value[1:]
     if urlsplit(value).scheme in ('http', 'https'):
         return None
